@@ -84,6 +84,15 @@ function telefone($telefone)
 		substr($telefone, 2, 5) . "-" . substr($telefone, 7);
 	return $tel;
 }
+function formatarCPF($cpf_cnpj)
+{
+    $cpfFormatado = substr($cpf_cnpj, 0, 3) . "." .
+                    substr($cpf_cnpj, 3, 3) . "." .
+                    substr($cpf_cnpj, 6, 3) . "-" .
+                    substr($cpf_cnpj, 9);
+    return $cpfFormatado;
+}
+
 function celPhone($phone)
 {
 	$cel = "(" . substr($phone, 0, 2) . ") " .

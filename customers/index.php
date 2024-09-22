@@ -31,7 +31,7 @@ include(HEADER_TEMPLATE);
 		<tr>
 			<th>ID</th>
 			<th width="30%">Nome</th>
-			<th>CPF/CNPJ</th>
+			<th>CPF</th>
 			<th>Telefone</th>
 			<th>Atualizado em</th>
 			<th>Opções</th>
@@ -43,7 +43,7 @@ include(HEADER_TEMPLATE);
 				<tr>
 					<td><?php echo $customer['id']; ?></td>
 					<td><?php echo $customer['name']; ?></td>
-					<td><?php echo $customer['cpf_cnpj']; ?></td>
+					<td><?php echo formatarCPF($customer['cpf_cnpj']); ?></td>
 					<td><?php echo celPhone($customer['phone']); ?></td>
 					<?php $data = new DateTime(
 						$customer['modified'],

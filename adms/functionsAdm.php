@@ -27,30 +27,31 @@
 		if (!empty($_POST['adms'])) {
 			$today = date_create('now', new DateTimeZone('America/Sao_Paulo'));
 			$adms = $_POST['adms'];
+			// Inicializar a variável que armazenará o caminho da imagem
+            $adms['photo'] = null;
+    
+            // Lidar com o upload da imagem (se houver um arquivo enviado)
+            if (isset($_FILES['photo']['name']) && $_FILES['photo']['error'] == 0) {
+                $upload_dir = 'imagens/';
+                $file_extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+                $new_file_name = uniqid() . '.' . $file_extension; // Gerar um nome único para a imagem
+                $uploaded_file = $upload_dir . $new_file_name;
+    
+                // Verificar e mover o arquivo enviado para o diretório de uploads
+                if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploaded_file)) {
+                    $adms['photo'] = $uploaded_file; // Salvar o caminho da imagem no banco de dados
+                } else {
+                    echo "Erro ao enviar a imagem.";
+                }
+            }
 			$adms['modified'] = $adms['created'] = $today->format("Y-m-d H:i:s");
 	
-			// Lida com o upload da imagem
-			if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-				$uploadDir = 'imagens/'; // Alterado para a subpasta 'imagens'
-				$uploadFile = $uploadDir . basename($_FILES['photo']['name']);
-	
-				// Verifica se a pasta de uploads existe, se não, cria
-				if (!is_dir($uploadDir)) {
-					mkdir($uploadDir, 0777, true);
-				}
-	
-				// Move o arquivo para a pasta de uploads
-				if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile)) {
-					$adms['photo'] = $uploadFile; // Salva o caminho da imagem no array
-				} else {
-					echo "Erro ao fazer upload da imagem: " . $_FILES['photo']['error'];
-				}
-			} else {
-				echo "Erro ao fazer upload: " . $_FILES['photo']['error']; // Exibe o erro se o upload falhar
-			}
-	
+			// Salvar os dados no banco de dados
 			save('adms', $adms);
-			header('location: index.php');
+	
+			// Redirecionar ou mostrar mensagem de sucesso
+			header('Location: index.php');
+			exit();
 		}
 	}
 	
@@ -67,21 +68,23 @@
 				$adms = $_POST['adms'];
 				$adms['modified'] = $now->format("Y-m-d H:i:s");
 
-				// Lida com o upload da nova imagem
-				if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-					$uploadDir = 'imagens/';
-					$uploadFile = $uploadDir . basename($_FILES['photo']['name']);
-
-					if (!is_dir($uploadDir)) {
-						mkdir($uploadDir, 0777, true);
-					}
-
-					if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadFile)) {
-						$adms['photo'] = $uploadFile;
-					} else {
-						echo "Erro ao fazer upload da nova imagem.";
-					}
-				}
+				 // Inicializar a variável que armazenará o caminho da imagem
+				 $adms['photo'] = null;
+    
+				 // Lidar com o upload da imagem (se houver um arquivo enviado)
+				 if (isset($_FILES['photo']['name']) && $_FILES['photo']['error'] == 0) {
+					 $upload_dir = 'imagens/';
+					 $file_extension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+					 $new_file_name = uniqid() . '.' . $file_extension; // Gerar um nome único para a imagem
+					 $uploaded_file = $upload_dir . $new_file_name;
+		 
+					 // Verificar e mover o arquivo enviado para o diretório de uploads
+					 if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploaded_file)) {
+						 $adms['photo'] = $uploaded_file; // Salvar o caminho da imagem no banco de dados
+					 } else {
+						 echo "Erro ao enviar a imagem.";
+					 }
+				 }
 
 				update('adms', $id, $adms);
 				header('location: index.php');

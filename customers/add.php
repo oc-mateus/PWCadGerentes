@@ -17,8 +17,8 @@
     </div>
 
     <div class="form-group col-md-3">
-      <label for="campo2">CNPJ / CPF</label>
-      <input type="text" class="form-control" name="customer['cpf_cnpj']" required maxlength="14">
+      <label for="campo2">CPF</label>
+      <input type="text" class="form-control" name="customer['cpf_cnpj']" required maxlength="11">
     </div>
 
     <div class="form-group col-md-2">

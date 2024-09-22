@@ -17,8 +17,8 @@ include(HEADER_TEMPLATE);
 	<dt>Nome / Razão Social:</dt>
 	<dd><?php echo $customer['name']; ?></dd>
 
-	<dt>CPF / CNPJ:</dt>
-	<dd><?php echo $customer['cpf_cnpj']; ?></dd>
+	<dt>CPF:</dt>
+	<dd><?php echo formatarCPF($customer['cpf_cnpj']); ?></dd>
 
 	<dt>Data de Nascimento:</dt>
 	<dd><?php echo formatadata($customer['birthdate'], "d/m/Y"); ?></dd>

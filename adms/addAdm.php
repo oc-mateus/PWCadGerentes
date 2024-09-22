@@ -71,8 +71,8 @@
     </div>
 
     <div class="form-group col-md-5">
-      <label for="photo">Foto</label>
-      <input type="file" name="photo" id="photo" class="form-control">
+      <label for="campo2">Foto</label>
+      <input type="file" name="adms['photo']" class="form-control">
     </div>
   </div>
 

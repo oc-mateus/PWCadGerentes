@@ -53,17 +53,9 @@ include(HEADER_TEMPLATE);
 	<dd><?php echo $adms['depto']; ?></dd>
 </dl>
 
-<!-- Exibição da imagem do gerente -->
-<dl class="dl-horizontal">
-	<dt>Foto:</dt>
-	<dd>
-      <?php if (!empty($adms['photo'])): ?>
-        <img src="<?php echo $adms['photo']; ?>" alt="Foto Atual" style="max-width: 200px; max-height: 200px;"><br>
-		<?php else: ?>
-			<p>Foto não disponível.</p>
-		<?php endif; ?>
-	</dd>
-</dl>
+<td>
+    <img src="<?php echo $adms['photo']?>" width="150" height="180px" />
+</td>
 
 <div id="actions" class="row mt-2">
 	<div class="col-md-12">
