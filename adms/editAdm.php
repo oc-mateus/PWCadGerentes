@@ -1,6 +1,6 @@
 <?php 
-require_once('functionsAdm.php'); 
-editAdms();
+  require_once('functionsAdm.php'); 
+  editAdms();
 ?>
 
 <?php include(HEADER_TEMPLATE); ?>
@@ -52,12 +52,12 @@ editAdms();
 
     <div class="form-group col-md-2">
       <label for="campo2">Telefone</label>
-      <input type="text" class="form-control" name="adms['phone']" value="<?php echo $adms['phone']; ?>" maxlength="10">
+      <input type="text" class="form-control" name="celPhone(adms['phone'])" value="<?php echo $adms['phone']; ?>" maxlength="10">
     </div>
 
     <div class="form-group col-md-2">
       <label for="campo3">Celular</label>
-      <input type="text" class="form-control" name="adms['mobile']" value="<?php echo $adms['mobile']; ?>" maxlength="11">
+      <input type="text" class="form-control" name="telefone(adms['mobile'])" value="<?php echo $adms['mobile']; ?>" maxlength="11">
     </div>
 
     <div class="form-group col-sm-1">
@@ -75,17 +75,13 @@ editAdms();
     <div class="form-group col-md-6">
       <label for="photo">Foto Atual:</label><br>
       <?php if (!empty($adms['photo'])): ?>
-        <img src="fotos/<?php echo $adms['photo']; ?>" alt="Foto Atual" style="max-width: 200px; max-height: 200px;"><br>
+        <img src="<?php echo $adms['photo']; ?>" alt="Foto Atual" style="max-width: 200px; max-height: 200px;"><br>
         <label for="change_photo">Alterar Foto:</label>
       <?php else: ?>
         <p>Sem foto disponível.</p>
         <label for="photo">Adicionar Foto:</label>
       <?php endif; ?>
       <input type="file" name="photo" id="photo" class="form-control">
-    </div>
-
-    <div class="form-group col-md-2">
-      <img class="form-control shadow p-2 mb-2 bg-body rounded" id="imgPreview" src="fotos/<?php echo !empty($adms['photo']) ? $adms['photo'] : 'semimagem.jpg'; ?>" alt="Pré-visualização" width="200px">
     </div>
   </div>
 
@@ -98,18 +94,3 @@ editAdms();
 </form>
 
 <?php include(FOOTER_TEMPLATE); ?>
-
-<script>
-  $(document).ready(() => {
-    $('#photo').change(function() {
-      const file = this.files[0];
-      if (file) {
-        let reader = new FileReader();
-        reader.onload = function(event) {
-          $('#imgPreview').attr('src', event.target.result);
-        }
-        reader.readAsDataURL(file);
-      }
-    });
-  });
-</script>
