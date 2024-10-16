@@ -7,6 +7,7 @@ include (HEADER_TEMPLATE);
        display: grid;
        place-items: center;
     }
+   
 </Style>
 <div id="actions" class="mt-5 mb-5">
     <form action="valida.php" method="post">

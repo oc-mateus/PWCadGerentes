@@ -1,98 +1,79 @@
-<?php 
-  require_once('functions.php'); 
-  edit();
+<?php
+//Esse é o edit.php
+include('functions.php');
+edit();
+include(HEADER_TEMPLATE);
 ?>
 
-<?php include(HEADER_TEMPLATE); ?>
+<header>
+    <h2>Atualizar Usuário</h2>
+</header>
 
-<h2>Atualizar Cliente</h2>
+<form action="edit.php?id=<?php echo $usuario['id']; ?>" method="post" enctype="multipart/form-data">
+    <!-- area de campos do form -->
+    <hr />
+    <div class="row">
+        <div class="form-group col-md-8">
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" name="usuario[nome]" value="<?php echo $usuario['nome']; ?>">
+        </div>
 
-<form action="edit.php?id=<?php echo $customer['id']; ?>" method="post">
-  <hr />
-  <div class="row">
-    <div class="form-group col-md-7">
-      <label for="name">Nome / Razão Social</label>
-      <input type="text" class="form-control" name="customer['name']" value="<?php echo $customer['name']; ?>">
-    </div>
+        <div class="form-group col-md-4">
+            <label for="campo2">Usuário (Login)</label>
+            <input type="text" class="form-control" name="usuario[user]" value="<?php echo $usuario['user']; ?>">
+        </div>
 
-    <div class="form-group col-md-3">
-      <label for="campo2">CNPJ / CPF</label>
-      <input type="text" class="form-control" name="customer['cpf_cnpj']" value="<?php echo $customer['cpf_cnpj']; ?>" maxlength="14">
-    </div>
-
-    <div class="form-group col-md-2">
-      <label for="campo3">Data de Nascimento</label>
-      <input type="date" class="form-control" name="customer['birthdate']" value="<?php echo $customer['birthdate']; ?>">
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-md-5">
-      <label for="campo1">Endereço</label>
-      <input type="text" class="form-control" name="customer['address']" value="<?php echo $customer['address']; ?>">
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="campo2">Bairro</label>
-      <input type="text" class="form-control" name="customer['hood']" value="<?php echo $customer['hood']; ?>">
-    </div>
-
-    <div class="form-group col-md-2">
-      <label for="campo3">CEP</label>
-      <input type="text" class="form-control" name="customer['zip_code']" value="<?php echo cep($customer['zip_code']); ?>" maxlength="8">
-    </div>
-
-    <div class="form-group col-md-2">
-      <label for="campo3">Data de Cadastro</label>
-      <input type="text" class="form-control" name="customer['created']" disabled value="<?php echo $customer['created']; ?>">
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-md-3">
-      <label for="campo1">Município</label>
-      <input type="text" class="form-control" name="customer['city']" value="<?php echo $customer['city']; ?>">
-    </div>
-
-    <div class="form-group col-md-2">
-      <label for="campo2">Telefone</label>
-      <input type="text" class="form-control" name="celPhone(customer['phone'])" value="<?php echo $customer['phone']; ?>" maxlength="10">
-    </div>
-
-    <div class="form-group col-md-2">
-      <label for="campo3">Celular</label>
-      <input type="text" class="form-control" name="telefone(customer['mobile'])" value="<?php echo $customer['mobile']; ?>" maxlength="11">
-    </div>
-
-    <div class="form-group col-sm-1">
-      <label for="campo3">UF</label>
-      <input type="text" class="form-control" name="customer['state']" value="<?php echo $customer['state']; ?>" maxlength="2">
-    </div>
-
-    <div class="form-group col-md-2">
-      <label for="campo3">Inscrição Estadual</label>
-      <input type="text" class="form-control" name="customer['ie']" value="<?php echo $customer['ie']; ?>" maxlength="14">
+        <div class="form-group col-md-4">
+            <label for="campo3">Senha</label>
+            <input type="password" class="form-control" name="usuario[password]" value="">
+        </div>
     </div>
 
     <div class="row">
-    <div class="form-group col-md-6">
-      <label for="photo">Foto Atual:</label><br>
-      <?php if (!empty($customer['photo'])): ?>
-        <img src="<?php echo $customer['photo']; ?>" alt="Foto Atual" style="max-width: 200px; max-height: 200px;"><br>
-        <label for="change_photo">Alterar Foto:</label>
-      <?php else: ?>
-        <p>Sem foto disponível.</p>
-        <label for="photo">Adicionar Foto:</label>
-      <?php endif; ?>
-      <input type="file" name="photo" id="photo" class="form-control">
-    </div>
-  </div>
+        <?php 
+        $photo = "";
+        if (empty($usuario['photo'])) {
+            $photo = "semimagem.jpg";
+        } else {
+            $photo = $usuario['photo'];
+        }
+        ?>
 
-  </div>
-  <div id="actions" class="row mt-2">
-    <div class="col-md-12">
-      <button type="submit" class="btn btn-dark">Salvar</button>
-      <a href="index.php" class="btn btn-light">Cancelar</a>
+        <div class="form-group col-md-4">
+            <label for="photo">Foto</label>
+            <input type="file" class="form-control" id="photo" name="photo" value="fotos/<?php echo $photo; ?>">
+        </div>
+
+        <div class="form-group col-md-2">
+            <img class="form-control shadow p-2 mb-2 bg-body rounded" id="imgPreview" src="fotos/<?php echo $photo; ?>" alt="Foto do usuário">
+        </div>
     </div>
-  </div>
+
+    <div id="actions" class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-secondary">
+                <i class="fa-solid fa-floppy-disk"></i> Salvar
+            </button>
+            <a href="index.php" class="btn btn-light">
+                <i class="fa-solid fa-rotate-left"></i> Cancelar
+            </a>
+        </div>
+    </div>
 </form>
 
 <?php include(FOOTER_TEMPLATE); ?>
+
+<script>
+    $(document).ready(() => {
+        $('#photo').change(function() {
+            const file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    $('#imgPreview').attr('src', event.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
