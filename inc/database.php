@@ -229,5 +229,10 @@ function update($table = null, $id = 0, $data = null) {
 	return $found;
   }
 
+  function clear_messages(){
+	$_SESSION['message'] = null;
+	$_SESSION['type'] = null;
+  }
+
 
 ?>
